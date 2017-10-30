@@ -7,4 +7,9 @@ spring:
     config:
       server:
         git:
-          uri: C:\\ws\\edu\\micro\\config
+          uri: https://github.com/haroonsin/starter-micro-services-config.git
+          clone-on-start: true
+#security:
+#  user:
+#    name: haroonsin
+#    password: migrance84
