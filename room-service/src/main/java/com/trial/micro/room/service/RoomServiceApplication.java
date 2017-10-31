@@ -2,6 +2,7 @@ package com.trial.micro.room.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,6 +16,7 @@ import java.util.Collections;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableDiscoveryClient
 public class RoomServiceApplication {
 
     public static void main(String[] args) {
@@ -24,15 +26,10 @@ public class RoomServiceApplication {
 
     @Bean
     public Docket api() {
-//        return new Docket(DocumentationType.SWAGGER_2).groupName("Room").select()
-//                .apis(RequestHandlerSelectors.basePackage("com.trial.micro.roomservice"))
-//                .paths(any()).build().apiInfo(new ApiInfo("Room Services",
-//                        "A set of services to provide data access to rooms", "1.0.0", null,
-//                        new Contact("Frank Moley", "https://twitter.com/fpmoles", null), null, null));
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.trial.micro.roomservice"))
+                .apis(RequestHandlerSelectors.basePackage("com.trial.micro.room.service"))
                 .paths(PathSelectors.any())
                 .build().apiInfo(apiInfo());
     }

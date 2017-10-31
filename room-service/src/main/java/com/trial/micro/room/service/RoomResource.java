@@ -6,9 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,13 +18,18 @@ class RoomResource {
     @Autowired
     private RoomRepository roomRepository;
 
-    @GetMapping("/rooms")
-    @ApiOperation(value = "Get all rooms.", notes = "Get all rooms in the system.", nickname = "getRooms")
-    List<Room> findRoom(@RequestParam(value = "roomNo", required = false) String roomNumber) {
-        if (StringUtils.isNotBlank(roomNumber)) {
-            return Collections.singletonList(roomRepository.findByRoomNumber(roomNumber));
-        } else {
-            return (List<Room>) roomRepository.findAll();
+    @GetMapping("rooms")
+    @ApiOperation(value = "Get All Rooms", notes = "Gets all rooms in the system", nickname = "getRooms")
+    public List<Room> findAll(@RequestParam(name = "roomNumber", required = false) String roomNumber) {
+        if (StringUtils.isNotEmpty(roomNumber)) {
+            return Collections.singletonList(this.roomRepository.findByRoomNumber(roomNumber));
         }
+        return (List<Room>) this.roomRepository.findAll();
+    }
+
+    @GetMapping(value = "rooms/{id}")
+    @ApiOperation(value = "Get Room", notes = "Gets a single room based on its unique id", nickname = "getRoom")
+    public Room findOne(@PathVariable("id") long id) {
+        return this.roomRepository.findOne(id);
     }
 }

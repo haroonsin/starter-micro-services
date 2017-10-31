@@ -1,2 +1,7 @@
 include('config-server')
 include('room-service')
+include('eureka-server')
+include('reservation-business-service')
+include('guest-service')
+include('reservation-service')
+include('reservation-web')
